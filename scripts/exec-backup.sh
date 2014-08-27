@@ -24,7 +24,7 @@ rotate_copies() {
 run_backup() {
 	for machine in `/usr/bin/virsh list --all --name`; do
 		echo "===================== executing on: $machine ===================="
-		shutdown_machine $machine
+		#shutdown_machine $machine
 		copy_machine $machine
 		echo "===================== finished on : $machine ===================="
 	done

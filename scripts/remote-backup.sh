@@ -65,6 +65,16 @@ run_backup() {
 	done
 }
 
+run_sync() {
+	if [ -z $1 ]; then
+		for machine in `cat $HOST_LIST`; do
+			sync $machine;
+		done
+	else
+		sync $1;
+	fi
+}
+
 # Create necessary directories and run the backup.
 run() {
 	/bin/date
@@ -83,7 +93,7 @@ show_info() {
 
 # Shows how to call this script.
 show_help() {
-	echo "Usage: sudo /bin/bash $0 [run|info|list|help]"
+	echo "Usage: sudo /bin/bash $0 run | info | list | help | sync [machine_name]"
 }
 
 # List existing backups or shows 'Directory not found!' if the directory is not found.
@@ -109,6 +119,10 @@ case $1 in
 	list)
 		list_backups;
 		exit 0;
+		;;
+	sync)
+		run_sync $2;
+		exit;
 		;;
 	*)
 		show_help;
